@@ -21,10 +21,10 @@ body.dark-mode {
     --primary-hover: #b46ef8;
     --secondary-color: #00d280;
     /* Slightly darker mint */
-    --bg-color: #1a1025;
+    --bg-color: #0b0713;
     /* Deep purple dark mode */
     --text-color: #f1f2f6;
-    --card-bg: rgba(30, 20, 45, 0.85);
+    --card-bg: rgba(60, 45, 80, 0.95);
     --glass-border: rgba(255, 255, 255, 0.05);
     --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
     --bubble-color: rgba(0, 210, 128, 0.15);
@@ -405,8 +405,7 @@ body.dark-mode .card-front h2 {
 .flip-hint {
     color: #888;
     font-size: 0.9rem;
-    position: absolute;
-    bottom: 2rem;
+    margin-top: 2rem;
     animation: upDown 1.5s infinite;
 }
 
@@ -426,8 +425,12 @@ body.dark-mode .card-front h2 {
     display: flex;
     gap: 0.5rem;
     position: absolute;
-    bottom: 1rem;
+    bottom: 1.5rem;
     opacity: 0.7;
+    flex-wrap: wrap;
+    /* allow wrapping if too many tags */
+    justify-content: center;
+    width: 90%;
 }
 
 .tag {

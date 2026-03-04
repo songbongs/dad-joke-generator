@@ -47,6 +47,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 // Setup Event Listeners
 function setupEventListeners() {
     // Navigation
+    document.getElementById('nav-home').onclick = () => switchView('intro');
     document.getElementById('nav-favorites').onclick = () => switchView('favorites');
     document.getElementById('nav-add').onclick = () => switchView('add');
     document.getElementById('btn-back-from-search').onclick = () => switchView('roulette');
