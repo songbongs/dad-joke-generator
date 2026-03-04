@@ -92,6 +92,10 @@ function setupEventListeners() {
 
     // Admin Mode
     document.getElementById('nav-admin').onclick = () => {
+        if (!views.roulette.classList.contains('active')) {
+            showToast("⚠️ 이 기능은 개그 룰렛 화면에서 사용해주세요.");
+            switchView('roulette');
+        }
         elems.adminContainer.classList.toggle('hidden');
     };
     document.getElementById('btn-hide-joke').onclick = hideCurrentJoke;
