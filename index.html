@@ -18,12 +18,10 @@
         const CONFIG = {
             // Google Sheets Query (gviz) URL 
             // example: https://docs.google.com/spreadsheets/d/1VekEfjyPiVVh-MPiE8y6c_SEDNjFW0KwV2YDytul7cA/gviz/tq?tqx=out:json&sheet=jokes
-            GVIZ_URL: "https://docs.google.com/spreadsheets/d/1VekEfjyPiVVh-MPiE8y6c_SEDNjFW0KwV2YDytul7cA/gviz/tq?tqx=out:json&sheet=jokes",
+            GVIZ_URL: "https://docs.google.com/spreadsheets/d/1VekEfjyPiVVh-MPiE8y6c_YDytul7cA/gviz/tq?tqx=out:json&sheet=jokes",
 
             // Google Apps Script Web App URL
-            SCRIPT_POST_URL: "https://script.google.com/macros/s/AKfycbxZbxdQerx6t8vMpdFwSS0m-dp1HXhok8UqEa1Rbj2cSjAiUi5JLEVrQ9JM_fcNnv2p/exec",
-
-            // Admin PIN for hiding jokes
+            SCRIPT_POST_URL: "https://script.goros/s/AKfycbxZbxdQerx6t8vMpdFwSS0m-dp1HXhok8UqEa1Rbj2cSjAiUi5JLEVrQ9JM_fcNnv2p/exec"           // Admin PIN for hiding jokes
             ADMIN_PIN: "1202"
         };
     </script>
@@ -38,7 +36,7 @@
 
     <header class="glass-header">
         <div class="header-content">
-            <h1>😂 배꼽주의! 아재개그 룰렛</h1>
+            <h1>😂 아재개그 룰렛</h1>
             <div class="controls">
                 <button id="theme-toggle" class="icon-btn" title="다크 모드 전환">🌙</button>
                 <button id="nav-favorites" class="icon-btn" title="즐겨찾기 목록">❤️</button>
@@ -47,16 +45,39 @@
             </div>
         </div>
         <div class="search-bar">
-            <input type="text" id="search-input" placeholder="🔍 검색어, 태그, 카테고리를 입력하세요...">
-            <select id="filter-category">
+            <input type="text" id="search-input" placeholder="🔍 검색어, 태그...">
+            <select id="filter-category" class="mobile-hide">
                 <option value="">모든 카테고리</option>
             </select>
         </div>
     </header>
 
     <main class="container">
+        <!-- Start/Intro View -->
+        <section id="view-intro" class="view-section active">
+            <div class="intro-panel glass-panel">
+                <h2 class="title-bounce">아재력 테스트! <br>준비되셨나요? 😎</h2>
+                <p>총 300개의 엄선된 고퀄리티 아재개그가 당신을 기다립니다.</p>
+                <div class="intro-stats">
+                    <div class="stat-box">
+                        <span class="icon">✨</span>
+                        <span class="text">엄선된 개그</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="icon">🎲</span>
+                        <span class="text">랜덤 룰렛</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="icon">⭐</span>
+                        <span class="text">평점 시스템</span>
+                    </div>
+                </div>
+                <button id="btn-start-roulette" class="btn-primary pulse-anim w-100 btn-large">바로 시작하기!</button>
+            </div>
+        </section>
+
         <!-- Main Roulette View -->
-        <section id="view-roulette" class="view-section active">
+        <section id="view-roulette" class="view-section hidden">
             <div class="roulette-container" id="roulette-spinner">
                 <div class="card-scene">
                     <div class="joke-card" id="joke-card">
@@ -69,7 +90,10 @@
                         <div class="card-face card-back">
                             <h2 id="card-answer" class="punchline">정답!</h2>
                             <div class="card-actions">
-                                <button id="btn-favorite" class="action-btn">❤️ 즐겨찾기</button>
+                                <div class="action-row">
+                                    <button id="btn-favorite" class="action-btn">❤️ 즐겨찾기</button>
+                                    <button id="btn-share" class="action-btn">🔗 공유하기</button>
+                                </div>
                                 <div class="rating-widget">
                                     <span>평가: </span>
                                     <div class="stars" id="rating-stars">

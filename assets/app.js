@@ -1,5 +1,6 @@
 // Initialize DOM Elements
 const views = {
+    intro: document.getElementById('view-intro'),
     roulette: document.getElementById('view-roulette'),
     search: document.getElementById('view-search'),
     favorites: document.getElementById('view-favorites'),
@@ -13,8 +14,10 @@ const elems = {
     cardCat: document.getElementById('card-category'),
     cardTags: document.getElementById('card-tags'),
     spinner: document.getElementById('roulette-spinner'),
+    btnStart: document.getElementById('btn-start-roulette'),
     btnSpin: document.getElementById('btn-spin'),
     btnFav: document.getElementById('btn-favorite'),
+    btnShare: document.getElementById('btn-share'),
     stars: document.querySelectorAll('#rating-stars span'),
     searchInput: document.getElementById('search-input'),
     catFilter: document.getElementById('filter-category'),
@@ -65,6 +68,14 @@ function setupEventListeners() {
 
     // Spin
     elems.btnSpin.onclick = startSpinning;
+    elems.btnStart.onclick = () => {
+        switchView('roulette');
+        // Initial random wait feel
+        startSpinning();
+    };
+
+    // Share
+    elems.btnShare.onclick = shareCurrentJoke;
 
     // Search
     elems.searchInput.addEventListener('input', performSearch);
@@ -266,6 +277,25 @@ function toggleFavorite() {
     localStorage.setItem('favJokes', JSON.stringify(favs));
     updateFavButtonUI();
     showToast(isFav ? "보관함에서 제거됨" : "보관함에 저장됨!");
+}
+
+function shareCurrentJoke() {
+    if (!currentJoke) return;
+    const textToShare = `😂 아재력 테스트!\nQ. ${currentJoke.question}\nA. ${currentJoke.answer}\n\n👉 나도 아재개그 해보기: https://songbongs.github.io/dad-joke-generator/`;
+
+    if (navigator.share) {
+        navigator.share({
+            title: '아재개그 랜덤 룰렛',
+            text: textToShare,
+        }).catch(console.error);
+    } else {
+        // Fallback to clipboard
+        navigator.clipboard.writeText(textToShare).then(() => {
+            showToast("클립보드에 복사되었습니다!");
+        }).catch(err => {
+            showToast("공유하기를 지원하지 않는 브라우저입니다.");
+        });
+    }
 }
 
 function hideCurrentJoke() {
