@@ -212,11 +212,20 @@ function startSpinning() {
     elems.card.classList.remove('is-flipped');
     elems.btnSpin.disabled = true;
 
+    // Temporary spinning UI state (hiding previous joke)
+    elems.cardQ.innerText = "🎲 룰렛을 돌리는 중...";
+    elems.cardA.innerText = "비밀입니다!";
+    elems.cardCat.innerText = "???";
+    elems.cardTags.innerHTML = "";
+    const flipHint = document.querySelector('.flip-hint');
+    if (flipHint) flipHint.style.display = 'none';
+
     // Simulate 1.5s spinning
     setTimeout(() => {
         elems.spinner.classList.remove('spinning');
         elems.btnSpin.disabled = false;
         loadNextJoke();
+        if (flipHint) flipHint.style.display = 'block';
     }, 1500);
 }
 
