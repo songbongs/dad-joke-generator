@@ -94,11 +94,14 @@ function setupEventListeners() {
     document.getElementById('nav-admin').onclick = () => {
         if (!views.roulette.classList.contains('active')) {
             showToast("⚠️ 이 기능은 개그 룰렛 화면에서 사용해주세요.");
-            switchView('roulette');
+            return;
         }
         elems.adminContainer.classList.toggle('hidden');
     };
     document.getElementById('btn-hide-joke').onclick = hideCurrentJoke;
+    document.getElementById('btn-cancel-hide').onclick = () => {
+        elems.adminContainer.classList.add('hidden');
+    };
 
     // Forms success catch via hidden iframe
     document.getElementById('hidden_iframe').onload = () => {
@@ -212,6 +215,7 @@ function getNextJoke() {
 }
 
 function startSpinning() {
+    elems.adminContainer.classList.add('hidden'); // Close any open admin dialog
     elems.spinner.classList.add('spinning');
     elems.card.classList.remove('is-flipped');
     elems.btnSpin.disabled = true;
